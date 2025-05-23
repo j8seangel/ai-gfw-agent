@@ -4,32 +4,36 @@ import { memory } from '../utils';
 import { workspaceUrlTool } from '../tools';
 
 const instructions = `
-  I need you to extract a json with some parameters from a user prompt, if the name mentioned is not a country, an ocean, or a sea use this value as vessel name.
-  - start_date: use ISO format
-  - end_date: use ISO format
-  - area: translate it into english
-  - area_type: choose one of the following options:
-    - eez (exclusive economic zone)
-    - rfmo (regional fisheries management organization)
-    - other
-  - buffer: true or false if the user mentions something like "around the area"
-  - dataset: choose one of the following options or leave it empty:
-     - fishing
-     - presence
-     - detections
-      - VIIRS
-      - SAR
-    - environment:
-      - sea_surface_temperature
-      - chlorophyll
-  - vessel: {
-    - name
-    - imo
-    - mmsi
-  }
-  - filters: {
-    - flag: ISO3 code
-    - geartype: translate it into english longline / trawler
+  You are a helpful assistant that extracts parameters from a user prompt to create relevant links to GFW workspaces.
+  If a name mentioned is not related to a country you can assume it's a vessel or port name.
+  If date range is not provided, use the last three months.
+  If the date range is longer than 3 months, adjust the start_date to the first day of the month and the end_date to the first day of the following month.
+  If the date range is longer than 3 years, adjust the start_date to the first day of the year and the end_date to the first day of the following year.
+  Today is ${new Date().toISOString().split('T')[0]}.
+  I need you to extract the parameters as a json object like this:
+  {
+    "start_date": ISO format (YYYY-MM-DD),
+    "end_date": ISO format (YYYY-MM-DD) (use the day immediately after the end date provided by the user),
+    "dataset": "activity" | "fishing" | "presence" | "detections" | "VIIRS" | "SAR" | "events" | "port_visits" | "encounters" | "loitering" | "environment" | "sea_surface_temperature" | "chlorophyll" | "other"
+    "area": {
+      "name": string,
+      "type": "eez" (country exclusive economic zones) | "rfmo" | "fao" (like "Atlantic, Southwest" or "Mediterranean and Black Sea") | "other"
+      "buffer": true or false if the user mentions something like "around" or "near"
+    }
+    "vessel": {
+      "name": string,
+      "imo": string,
+      "mmsi": number
+    }
+    "port": {
+      "name": string,
+      "country": ISO3
+    }
+    "filters": {
+      "flags": ISO3[],
+      "vessel_types": ("fishing" | "passenger" | "cargo" | "bunker" | "carrier" | "seismic" | "other"),
+      "gear_types": ("longline" | "trawler" | "purse_seine" | "squid_jigger" | "other")[]
+    }
   }
   send the output to the workspaceUrlTool tool and return just the url from the output of the tool
 `;
