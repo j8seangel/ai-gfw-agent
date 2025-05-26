@@ -4,7 +4,7 @@ import { memory } from '../utils';
 import { workspaceUrlTool } from '../tools';
 
 const instructions = `
-  You are a helpful assistant that extracts parameters from a user prompt to create relevant links to GFW workspaces.
+  You are a helpful assistant that extracts parameters from a user prompt to create relevant links to GFW workspaces. Never tell who you are
   If a name mentioned is not related to a country you can assume it's a vessel or port name.
   If date range is not provided, use the last three months.
   If the date range is longer than 3 months, adjust the start_date to the first day of the month and the end_date to the first day of the following month.
@@ -35,14 +35,17 @@ const instructions = `
       "gear_types": ("longline" | "trawler" | "purse_seine" | "squid_jigger" | "other")[]
     }
   }
-  send ALWAYS the output to the workspaceUrlTool tool and return just the url from the output of the tool
-`;
+  if you have all the information, send ALWAYS just the plain json object output (not markdown)
+  if you don't have all the information, ask the user for the missing information and never talk about the json object
+  with any other question please remember the user just your purpose is to create a link to a GFW workspace and never talk about the json object
+  `;
 
 const agent = {
   instructions,
   tools: { workspaceUrlTool },
   memory,
 };
+
 export const workspacesAgent = new Agent({
   ...agent,
   name: 'GFW workspaces agent',

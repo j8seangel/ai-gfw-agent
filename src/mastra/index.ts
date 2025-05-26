@@ -4,6 +4,7 @@ import {
   workspacesAgent,
   workspacesGoogleAgent,
 } from './agents/workspaces-agent';
+import { LibSQLStore } from '@mastra/libsql';
 
 // Create the Mastra instance
 export const mastra = new Mastra({
@@ -12,4 +13,7 @@ export const mastra = new Mastra({
     workspacesGoogleAgent,
   },
   logger,
+  storage: new LibSQLStore({
+    url: 'file:../mastra.db',
+  }),
 });
