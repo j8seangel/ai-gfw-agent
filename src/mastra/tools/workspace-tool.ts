@@ -1,10 +1,6 @@
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 
-const searchAreaId = async (area: string) => {
-  return area;
-};
-
 const vesselInput = z
   .object({
     name: z.string().describe('Name').nullable().optional(),
@@ -21,6 +17,10 @@ const portInput = z
   })
   .nullable()
   .optional();
+
+const searchAreaId = async (area: string) => {
+  return area;
+};
 
 const searchVessel = async (vessel: z.infer<typeof vesselInput>) => {
   if (!vessel) return '';
@@ -45,8 +45,16 @@ export const workspaceUrlTool = createTool({
     filters: z
       .object({
         flags: z.array(z.string()).describe('Flags').nullable().optional(),
-        vessel_types: z.array(z.string()).describe('Vessel types').nullable().optional(),
-        gear_types: z.array(z.string()).describe('Geartypes').nullable().optional(),
+        vessel_types: z
+          .array(z.string())
+          .describe('Vessel types')
+          .nullable()
+          .optional(),
+        gear_types: z
+          .array(z.string())
+          .describe('Geartypes')
+          .nullable()
+          .optional(),
       })
       .nullable()
       .optional(),
@@ -57,7 +65,17 @@ export const workspaceUrlTool = createTool({
     url: z.string(),
   }),
   execute: async ({ context }) => {
-    const { start_date, end_date, area, area_type, buffer, dataset, filters, vessel, port } = context;
+    const {
+      start_date,
+      end_date,
+      area,
+      area_type,
+      buffer,
+      dataset,
+      filters,
+      vessel,
+      port,
+    } = context;
     if (vessel) {
       const vesselId = await searchVessel(vessel);
       return {

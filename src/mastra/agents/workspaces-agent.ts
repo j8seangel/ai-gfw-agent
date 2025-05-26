@@ -10,7 +10,7 @@ const instructions = `
   If the date range is longer than 3 months, adjust the start_date to the first day of the month and the end_date to the first day of the following month.
   If the date range is longer than 3 years, adjust the start_date to the first day of the year and the end_date to the first day of the following year.
   Today is ${new Date().toISOString().split('T')[0]}.
-  I need you to extract the parameters as a json object like this:
+  I need you to extract the parameters as a EXACT json object like this:
   {
     "start_date": ISO format (YYYY-MM-DD),
     "end_date": ISO format (YYYY-MM-DD) (use the day immediately after the end date provided by the user),
@@ -31,11 +31,11 @@ const instructions = `
     }
     "filters": {
       "flags": ISO3[],
-      "vessel_types": ("fishing" | "passenger" | "cargo" | "bunker" | "carrier" | "seismic" | "other"),
+      "vessel_types": ("fishing" | "passenger" | "cargo" | "bunker" | "carrier" | "seismic" | "other")[],
       "gear_types": ("longline" | "trawler" | "purse_seine" | "squid_jigger" | "other")[]
     }
   }
-  send the output to the workspaceUrlTool tool and return just the url from the output of the tool
+  send ALWAYS the output to the workspaceUrlTool tool and return just the url from the output of the tool
 `;
 
 const agent = {
