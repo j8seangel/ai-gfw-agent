@@ -41,7 +41,7 @@ const instructions = `
 
 const agent = {
   instructions,
-  tools: { workspaceUrlTool },
+  // tools: { workspaceUrlTool },
   memory,
 };
 
