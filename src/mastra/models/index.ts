@@ -22,7 +22,7 @@ export const getOllamaModel = (modelName: SupportedOllamaModels = 'gemma3') => {
   });
 };
 
-export const getGoogleModel = (modelName: string = 'gemini-2.0-flash') => {
+export const getGoogleModel = (modelName: string = 'gemini-2.0-flash-lite') => {
   return google(`models/${modelName}`);
 };
 
