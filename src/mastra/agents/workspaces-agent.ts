@@ -14,30 +14,29 @@ const instructions = `
   {
     "start_date": ISO format (YYYY-MM-DD),
     "end_date": ISO format (YYYY-MM-DD) (use the day immediately after the end date provided by the user),
-    "dataset": "activity" | "fishing" | "presence" | "detections" | "VIIRS" | "SAR" | "events" | "port_visits" | "encounters" | "loitering" | "environment" | "sea_surface_temperature" | "chlorophyll" | "other"
+    "dataset": "activity" | "fishing" | "presence" | "detections" | "VIIRS" | "SAR" | "events" | "port_visits" | "encounters" | "loitering" | "environment" | "sea_surface_temperature" | "chlorophyll"
     "area": {
-      "name": string,
-      "type": "eez" (country exclusive economic zones) | "rfmo" | "fao" (like "Atlantic, Southwest" or "Mediterranean and Black Sea") | "other"
+      "name": string | null,
       "buffer": true or false if the user mentions something like "around" or "near"
-    }
+    } | null
     "vessel": {
-      "name": string,
-      "imo": string,
-      "mmsi": number
-    }
+      "name": string | null,
+      "imo": string | null,
+      "mmsi": number | null
+    } | null
     "port": {
-      "name": string,
-      "country": ISO3
-    }
+      "name": string | null,
+      "country": ISO3 | null
+    } | null
     "filters": {
-      "flags": ISO3[],
-      "vessel_types": ("fishing" | "passenger" | "cargo" | "bunker" | "carrier" | "seismic" | "other")[],
-      "gear_types": ("longline" | "trawler" | "purse_seine" | "squid_jigger" | "other")[]
-    }
+      "flags": ISO3[] | null,
+      "vessel_types": ("carrier" | "seismic_vessel" | "passenger" | "other" | "support" | "bunker" | "gear" | "cargo" | "fishing" | "discrepancy")[] | null,
+      "gear_types": ("tuna_purse_seines" | "driftnets" | "trollers" | "set_longlines" | "purse_seines" | "pots_and_traps" | "other_fishing" | "dredge_fishing" | "set_gillnets" | "fixed_gear" | "trawlers" | "fishing" | "seiners" | "other_purse_seines" | "other_seines" | "squid_jigger" | "pole_and_line" | "drifting_longlines")[] | null
+    } | null
   }
   if you have all the information, send ALWAYS just the plain json object output (not markdown)
   if you don't have all the information, ask the user for the missing information and never talk about the json object
-  with any other question please remember the user just your purpose is to create a link to a GFW workspace and never talk about the json object
+  with any other question please remember the user that your purpose is just to create a link to a GFW workspace and never talk about the json object
   `;
 
 const agent = {
