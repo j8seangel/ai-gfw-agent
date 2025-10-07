@@ -1,10 +1,11 @@
 import { createLogger } from '@mastra/core/logger';
 import { LibSQLStore } from '@mastra/libsql';
+import { PinoLogger } from '@mastra/loggers';
 import { Memory } from '@mastra/memory';
 
-export const logger = createLogger({
+export const logger = new PinoLogger({
   name: 'Mastra',
-  level: 'debug',
+  level: 'debug', // 'info',
 });
 
 export const storage = new LibSQLStore({

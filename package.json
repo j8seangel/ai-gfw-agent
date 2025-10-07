@@ -16,19 +16,20 @@
     "node": ">=20.9.0"
   },
   "dependencies": {
-    "@ai-sdk/google": "^1.2.18",
-    "@ai-sdk/groq": "^1.2.9",
+    "@ai-sdk/google": "2.0.17",
+    "@ai-sdk/groq": "2.0.22",
     "@globalfishingwatch/api-types": "^8.0.4",
-    "@mastra/core": "^0.9.4",
-    "@mastra/libsql": "^0.0.4",
-    "@mastra/mcp": "^0.5.0",
-    "@mastra/memory": "^0.3.4",
+    "@mastra/core": "0.20.0",
+    "@mastra/libsql": "0.15.1",
+    "@mastra/loggers": "^0.10.15",
+    "@mastra/mcp": "0.13.3",
+    "@mastra/memory": "0.15.5",
     "ollama-ai-provider": "^1.2.0",
-    "zod": "^3.25.7"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/node": "^22.15.19",
-    "mastra": "^0.6.3",
-    "typescript": "^5.8.3"
+    "@types/node": "24.7.0",
+    "mastra": "0.14.1",
+    "typescript": "5.9.3"
   }
 }
